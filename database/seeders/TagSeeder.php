@@ -2,14 +2,12 @@
 
 namespace Database\Seeders;
 
-use App\Models\User;
+use App\Models\Tag;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Str;
 
-class UserSeeder extends Seeder
+class TagSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -17,6 +15,12 @@ class UserSeeder extends Seeder
     public function run(): void
     {
 
-        User::factory(10)->create();
+        $tags = ['advanture', 'hoby', 'food', 'study', 'makeup', 'programming'];
+
+        foreach ($tags as $tag) {
+            Tag::create([
+                'name' => $tag,
+            ]);
+        }
     }
 }

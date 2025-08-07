@@ -14,9 +14,8 @@
     <div class="container">
         <div class="mt-5">
             <h1 class="text-center">
-                Daftar Blog {{ auth()->user()->name }}
+                Daftar User
             </h1>
-
             <div class="table-responsive mt-5">
                 <a href="{{ url('/blog/add') }}" class="btn btn-primary mb-3">Add New</a>
 
@@ -27,45 +26,38 @@
                 @endif
 
                 <form method="GET">
-                    <div class="input-group mb-3">
-                        <input type="text" name="title" value="{{ $title }}" class="form-control"
+                    {{-- <div class="input-group mb-3">
+                        <input type="text" name="user" value="{{ $user }}" class="form-control"
                             placeholder="Search title" aria-label="Recipient’s username"
                             aria-describedby="button-addon2">
                         <button class="btn btn-outline-secondary" type="submit" id="button-addon2">Search</button>
-                    </div>
+                    </div> --}}
                 </form>
                 <table class="table table-striped table-hover">
                     <thead>
                         <tr>
                             <th>#</th>
-                            <th>title</th>
-                            <th>author</th>
-                            <th>image</th>
-                            <th>rating</th>
+                            <th>user</th>
+                            <th>email</th>
+                            <th>phone</th>
+                            <th>Gambar</th>
                             <th>aksi</th>
                         </tr>
                     </thead>
 
                     <tbody class="table-group-divider">
 
-                        @if ($data->count() == 0)
+                        @if ($users->count() == 0)
 
                             <td colspan="3">Data tidak ditemukan</td>
                         @else
-                            @foreach ($data as $item)
+                            @foreach ($users as $item)
                                 <tr>
-                                    <td>{{ ($data->currentPage() - 1) * $data->perpage() + $loop->index + 1 }}</td>
-                                    <td>{{ $item->title }}</td>
-                                    <td>{{ $item->user->name ?? '-' }}</td>
-                                    <td>{{ $item->image->name ?? '-' }}</td>
-                                    <td>
-                                        @if ($item->ratings->count() == 0)
-                                            not rated yet
-                                        @else
-                                            {{ round(collect($item->ratings->pluck('rating_value'))->avg(), 1) }}
-                                        @endif
-
-                                    </td>
+                                    <td>{{ ($users->currentPage() - 1) * $users->perpage() + $loop->index + 1 }}</td>
+                                    <td>{{ $item->name }}</td>
+                                    <td>{{ $item->email }}</td>
+                                    <td>{{ $item->phone->phone ?? '-' }}</td>
+                                    <td>{{ $item->image->name }}</td>
                                     <td> <a href="{{ url('/blog/' . $item->id . '/detail') }}"><button type="button"
                                                 class="btn btn-primary">detail</button></a> <a
                                             href="{{ url('/blog/' . $item->id . '/edit') }}"><button type="button"
@@ -86,7 +78,7 @@
                     </tbody>
                 </table>
 
-                {{ $data->links() }}
+                {{ $users->links() }}
             </div>
         </div>
     </div>

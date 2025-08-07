@@ -4,6 +4,9 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Eloquent\Relations\MorphOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
@@ -44,5 +47,23 @@ class User extends Authenticatable
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
+    }
+
+    public function phone(): HasOne
+    {
+
+        return $this->hasOne(Phone::class);
+    }
+
+    public function image(): MorphOne
+    {
+
+        return $this->morphOne(Image::class, 'imageable');
+    }
+
+    public function blogs(): HasMany
+    {
+
+        return $this->hasMany(Blog::class, 'author_id');
     }
 }

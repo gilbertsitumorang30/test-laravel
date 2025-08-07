@@ -25,6 +25,6 @@ class BlogSeeder extends Seeder
         // ]);
 
 
-        Blog::factory(30)->create();
+        Blog::factory(10)->create();
     }
 }
