@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Storage;
 
 class BlogController extends Controller
 {
@@ -36,8 +37,20 @@ class BlogController extends Controller
 
         $validate = $request->validate([
             'title' => 'required|max:255',
-            'body' => 'required'
+            'body' => 'required',
         ]);
+
+        $file = $request->file('image');
+
+
+        if ($file) {
+            $name = $file->hashName();
+
+            Storage::putFileAs('images', $file,  $name);
+            $validate['image'] = $name;
+        }
+
+
         // DB::table('blogs')->insert($validate);
 
         Blog::create($validate);

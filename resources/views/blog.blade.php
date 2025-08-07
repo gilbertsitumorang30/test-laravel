@@ -57,7 +57,15 @@
                                     <td>{{ ($data->currentPage() - 1) * $data->perpage() + $loop->index + 1 }}</td>
                                     <td>{{ $item->title }}</td>
                                     <td>{{ $item->user->name ?? '-' }}</td>
-                                    <td>{{ $item->image->name ?? '-' }}</td>
+                                    <td>
+                                        @if ($item->image)
+                                            <img src="{{ asset('storage/images/' . $item->image) }}" alt=""
+                                                width="50">
+                                            {{-- /storage/{{ $item->image }} --}}
+                                        @else
+                                            -
+                                        @endif
+                                    </td>
                                     <td>
                                         @if ($item->ratings->count() == 0)
                                             not rated yet

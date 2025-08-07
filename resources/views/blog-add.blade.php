@@ -26,7 +26,7 @@
                     @endforeach
                 </div>
             @endif
-            <form action="{{ url('/blog/create') }}" method="POST">
+            <form action="{{ url('/blog/create') }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 <div class="col-md-6">
                     <label for="title" class="form-label">Title : </label>
@@ -36,6 +36,9 @@
                 <div class="col-md-6">
                     <label for="title" class="form-label">Description : </label>
                     <textarea type="text" name="body" rows="4" class="form-control" id="body"> {{ old('body') }}</textarea>
+                </div>
+                <div class="col-md-6 mt-3">
+                    <input class="form-control" type="file" name="image">
                 </div>
                 <div class="col-md-6 mt-3">
                     <button class="btn btn-success form-control">Save</button>
